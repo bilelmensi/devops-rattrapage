@@ -1,0 +1,62 @@
+pipeline {
+     environment { 
+
+        registry = "bilelmensi/alpine" 
+
+        registryCredential = 'dockerhub_id' 
+
+        dockerImage = ' ' 
+
+    }
+    agent any
+    stages {
+        stage('GIT'){
+            steps {
+                echo 'Pulling ...';
+                git branch: 'master' ,
+                url : 'https://github.com/bilelmensi/devops-rattrapage.git';
+                  }   
+        }
+        stage ('MVN CLEAN'){
+            steps{
+                echo 'cleaning ...'
+                sh 'mvn clean'
+            }
+        }
+        
+        stage ('MVN COMPILE'){
+            steps{
+                echo 'Compiling ...'
+                sh 'mvn compile'
+            }
+        
+        }
+       
+        stage ('NEXUS'){
+            steps {
+                echo 'Nexus .... ' 
+                sh 'mvn deploy'
+            }
+        }
+        stage('Building our image') { 
+            steps { 
+                script { 
+                    dockerImage = docker.build registry + ":$BUILD_NUMBER" 
+                }
+            } 
+        }
+        stage('Deploy our image') { 
+            steps { 
+
+                script { 
+
+                    docker.withRegistry( '', registryCredential ) { 
+
+                        dockerImage.push() 
+
+                    }
+                }
+            }
+        }
+    }
+}
