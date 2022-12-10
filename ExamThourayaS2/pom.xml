@@ -18,8 +18,7 @@
 	</properties>
 	<distributionManagement>
 		 <snapshotRepository>
-			<id>nexus-snapshots</id>
-			<url>http://localhost:8081/nexus/content/repositories/snapshots/rattrapage-devops</url>
+			<id>nexus</id>
 		 </snapshotRepository>
 	</distributionManagement>
 	<dependencies>
