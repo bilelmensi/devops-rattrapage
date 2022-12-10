@@ -63,7 +63,7 @@
 				</executions>
 				<configuration>
 				<serverId>nexus</serverId>
-				<nexusUrl>http://192.168.2.15:8081/nexus/content/repositories/snapshots/rattrapage-devops
+				<nexusUrl>http://192.168.2.15:8081/nexus/content/repositories/snapshots/rattrapage-devops</nexusUrl>
 				<skipStaging>true</skipStaging>
 				</configuration>
 			</plugin>
