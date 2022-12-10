@@ -48,7 +48,7 @@ pipeline {
                     sh """
                     cat /.dockerpass | xargs docker login --username bilel98 --password
                     docker push bilel98/devops-rattrapage:examen 
-                    exho "Image Pushed
+                    echo "Image Pushed"
                     """
             }
         }
