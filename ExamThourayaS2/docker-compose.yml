@@ -14,7 +14,7 @@ services:
     container_name: spring_app
     restart: on-failure
     ports:
-      - 9090:9090
+      - 8083:8083
     depends_on:
       - mysqldb
     environment:
