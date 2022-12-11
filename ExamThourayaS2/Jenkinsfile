@@ -20,62 +20,6 @@ pipeline {
                 echo 'Compiling ...'
                 sh 'cd ExamThourayaS2 && mvn compile'
             }
-        
-        }
-         stage ('MVN PACKAGE'){
-            steps{
-                echo 'Packaging...'
-                sh 'cd ExamThourayaS2 && mvn package'
-            }
-        
-        }
-        
-        stage ('SONAR SCAN'){
-            steps{
-                echo 'Starting Sonar Scan'
-                sh 'cd ExamThourayaS2 && mvn sonar:sonar -Dsonar.projectKey=devops-rattrapage -Dsonar.host.url=http://192.168.2.15:9000 -Dsonar.login=admin -Dsonar.password=adminadmin'
-            }
-        }
-       
-        stage('Building our image') { 
-            steps { 
-                sh "cd ExamThourayaS2 && docker build . -t bilel98/devops-rattrapage:examen"
-            } 
-        }
-       
-        stage('Deploy our image') { 
-            steps { 
-                    sh """
-                    cat /.dockerpass | xargs docker login --username bilel98 --password
-                    docker push bilel98/devops-rattrapage:examen 
-                    echo "Image Pushed"
-                    """
-            }
-        }
-    }
-}
-pipeline {
-    agent any
-    stages {
-        stage('GIT'){
-            steps {
-                echo 'Pulling ...';
-                git branch: 'main' ,
-                url : 'https://github.com/bilelmensi/devops-rattrapage.git';
-                  }   
-        }
-        stage ('MVN CLEAN'){
-            steps{
-                echo 'cleaning ...'
-                sh 'cd ExamThourayaS2 && mvn clean'
-            }
-        }
-        
-        stage ('MVN COMPILE'){
-            steps{
-                echo 'Compiling ...'
-                sh 'cd ExamThourayaS2 && mvn compile'
-            }
         }
         
         stage ('MVN PACKAGE'){
